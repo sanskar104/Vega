@@ -1,0 +1,56 @@
+<nav class="main-nav clear">
+  <ul>
+    <li><a href="{{loginUrl}}" class="linknav">Log In</a></li>
+    <li><a class="loginLink" (click)="goToSignup()">Sign Up</a></li>
+  </ul>
+  <div class="clear"></div>
+</nav>
+
+<div class="login-box">
+  <div class="login-header">
+      <div>Log In</div>
+  </div>
+  <form #userLoginForm="ngForm">
+      <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-control" name="username" required id="username" [(ngModel)]="model.username"  minlength="5"  #username="ngModel">
+          <small [hidden]="username.valid ||(username.pristine)"  class="text-danger">
+             Username is required (minimum 5 characters)
+          </small>
+          <!--<div *ngIf="username.errors && (username.dirty || username.touched)" class="alert alert-danger">
+              <div [hidden]="!username.errors.required">
+                 Username is required
+              </div>
+              <div [hidden]="!username.errors.minlength">
+                 Username must be atleast 5 characters
+              </div>
+          </div>-->
+      </div>
+      <div class="form-group">
+          <label>Password</label>
+          <input type="password" class="form-control" name="passwrod" id="passwrod" required  [(ngModel)]="model.password"  minlength="6"  #password="ngModel">
+          <small [hidden]="password.valid ||(password.pristine)"  class="text-danger">
+              Password is required (minimum 6 characters)
+          </small>
+          <!--<div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+              <div [hidden]="!password.errors.required">
+                 password is required
+              </div>
+              <div [hidden]="!password.errors.minlength">
+                 password must be atleast 6 characters
+              </div>
+          </div> -->
+      </div>
+      <div class="form-group">
+        <div class="alert alert-warning"  *ngIf="loginService.loginError">
+          <strong>{{loginService.loginErrorMsg}}</strong>
+        </div>
+      </div>
+      <div>
+        <button class="submit-btn btn" [disabled]="!userLoginForm.form.valid" type="button" (click)="loginService.loginValidate(model.username,model.password)" >Log In</button>
+      </div>
+    <!--  <div>
+          {{currentVal}}
+      </div> -->
+  </form>
+</div>
